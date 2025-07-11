@@ -14,7 +14,6 @@ export const Translator = () => {
     setToLanguage,
     loading,
     error,
-    handleTranslate,
     handleExchange,
   } = useTranslator();
 
@@ -42,6 +41,11 @@ export const Translator = () => {
       {error && (
         <p className="error" role="alert">
           {error}
+        </p>
+      )}
+      {loading && (
+        <p className="loading" role="status">
+          Translating...
         </p>
       )}
       <div className="text-input">
@@ -83,14 +87,6 @@ export const Translator = () => {
           onIconClick={handleIconClick}
         />
       </ul>
-      <button
-        onClick={handleTranslate}
-        disabled={loading}
-        aria-busy={loading}
-        aria-label={loading ? "Translating in progress" : "Translate text"}
-      >
-        {loading ? "Translating..." : "Translate Text"}
-      </button>
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useDebounce } from "../hooks/useDebounce.js";
 
 export const useTranslator = (
   initialFromLanguage = "en-GB",
@@ -11,17 +12,27 @@ export const useTranslator = (
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const debouncedFromText = useDebounce(fromText, 500);
+  const debouncedFromLanguage = useDebounce(fromLanguage, 500);
+  const debouncedToLanguage = useDebounce(toLanguage, 500);
+
   const handleTranslate = useCallback(async () => {
-    if (!fromText) {
+    if (!debouncedFromText.trim()) {
       setError("Please enter text to translate");
+      setToText("");
+      return;
+    }
+    if (debouncedFromText.trim().length < 2) {
+      setError("Text must be at least 2 characters long");
+      setToText("");
       return;
     }
     setLoading(true);
     setError(null);
     try {
       const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-        fromText
-      )}&langpair=${fromLanguage}|${toLanguage}`;
+        debouncedFromText.trim()
+      )}&langpair=${debouncedFromLanguage}|${debouncedToLanguage}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error("Translation API error");
       const data = await res.json();
@@ -32,7 +43,11 @@ export const useTranslator = (
     } finally {
       setLoading(false);
     }
-  }, [fromText, fromLanguage, toLanguage]);
+  }, [debouncedFromText, debouncedFromLanguage, debouncedToLanguage]);
+
+  useEffect(() => {
+    handleTranslate();
+  }, [handleTranslate]);
 
   const handleExchange = useCallback(() => {
     setFromText(toText);
