@@ -1,141 +1,96 @@
-import { useState } from "react";
 import languages from "../utils/languaje.js";
+import { useTranslator } from "../hooks/useTranslator.js";
+import { LanguageSelector } from "./LanguageSelector.jsx";
+import { useCallback } from "react";
 
 export const Translator = () => {
-  const [fromText, setFromText] = useState("");
-  const [toText, setToText] = useState("");
-  const [fromLanguage, setFromLanguage] = useState("en-GB");
-  const [toLanguage, setToLanguage] = useState("hi-IN");
-  const [loading, setLoading] = useState(false);
+  const {
+    fromText,
+    setFromText,
+    toText,
+    fromLanguage,
+    setFromLanguage,
+    toLanguage,
+    setToLanguage,
+    loading,
+    error,
+    handleTranslate,
+    handleExchange,
+  } = useTranslator();
 
-  const copyContent = (text) => {
-    navigator.clipboard.writeText(text);
-  };
+  const handleIconClick = useCallback(
+    (action, id) => {
+      if (!fromText && id === "from") return;
+      if (!toText && id === "to") return;
 
-  const utterText = (text, language) => {
-    const synth = window.speechSynthesis;
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = language;
-    synth.speak(utterance);
-  };
+      const text = id === "from" ? fromText : toText;
+      const language = id === "from" ? fromLanguage : toLanguage;
 
-  const handleExchange = () => {
-    let tempValue = fromText;
-    setFromText(toText);
-    setToText(tempValue);
-
-    let tempLang = fromLanguage;
-    setFromLanguage(toLanguage);
-    setToLanguage(tempLang);
-  };
-
-  const handleTranslate = () => {
-    setLoading(true);
-    let url = `https://api.mymemory.translated.net/get?q=${fromText}&langpair=${fromLanguage}|${toLanguage}`;
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((data) => {
-        setToText(data.responseData.translatedText);
-        setLoading(false);
-      });
-  };
-
-  const handleIconClick = (target, id) => {
-    if (!fromText || !toText) return;
-
-    if (target.classList.contains("fa-copy")) {
-      if (id === "from") {
-        copyContent(fromText);
-      } else {
-        copyContent(toText);
+      if (action === "copy") {
+        navigator.clipboard.writeText(text);
+      } else if (action === "speak") {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = language;
+        window.speechSynthesis.speak(utterance);
       }
-    } else {
-      if (id === "from") {
-        utterText(fromText, fromLanguage);
-      } else {
-        utterText(toText, toLanguage);
-      }
-    }
-  };
+    },
+    [fromText, toText, fromLanguage, toLanguage]
+  );
 
   return (
-    <>
-      <div className="wrapper">
-        <div className="text-input">
-          <textarea
-            name="from"
-            className="from-text"
-            placeholder="Enter Text"
-            id="from"
-            value={fromText}
-            onChange={(e) => setFromText(e.target.value)}
-          ></textarea>
-          <textarea
-            name="to"
-            className="to-text"
-            id="to"
-            value={toText}
-            readonly
-          ></textarea>
-        </div>
-        <ul className="controls">
-          <li className="row from">
-            <div className="icons">
-              <i
-                id="from"
-                className="fa-solid fa-volume-high"
-                onClick={(e) => handleIconClick(e.target, "from")}
-              ></i>
-              <i
-                id="from"
-                className="fa-solid fa-copy"
-                onClick={(e) => handleIconClick(e.target, "from")}
-              ></i>
-            </div>
-            <select
-              value={fromLanguage}
-              onChange={(e) => setFromLanguage(e.target.value)}
-            >
-              {Object.entries(languages).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </li>
-          <li className="exchange" onClick={handleExchange}>
-            <i className="fa-solid fa-arrow-right-arrow-left"></i>
-          </li>
-          <li className="row to">
-            <select
-              value={toLanguage}
-              onChange={(e) => setToLanguage(e.target.value)}
-            >
-              {Object.entries(languages).map(([code, name]) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-            <div className="icons">
-              <i
-                id="to"
-                className="fa-solid fa-copy"
-                onClick={(e) => handleIconClick(e.target, "to")}
-              ></i>
-              <i
-                id="to"
-                className="fa-solid fa-volume-high"
-                onClick={(e) => handleIconClick(e.target, "to")}
-              ></i>
-            </div>
-          </li>
-        </ul>
+    <div className="wrapper">
+      {error && (
+        <p className="error" role="alert">
+          {error}
+        </p>
+      )}
+      <div className="text-input">
+        <textarea
+          className="from-text"
+          placeholder="Enter Text"
+          value={fromText}
+          onChange={(e) => setFromText(e.target.value)}
+          aria-label="Source text for translation"
+        />
+        <textarea
+          className="to-text"
+          value={toText}
+          readOnly
+          aria-label="Translated text"
+        />
       </div>
-      <button onClick={handleTranslate} disabled={loading}>
+      <ul className="controls">
+        <LanguageSelector
+          id="from"
+          value={fromLanguage}
+          onChange={(e) => setFromLanguage(e.target.value)}
+          languages={languages}
+          onIconClick={handleIconClick}
+        />
+        <li
+          className="exchange"
+          onClick={handleExchange}
+          role="button"
+          aria-label="Exchange languages"
+        >
+          <i className="fa-solid fa-arrow-right-arrow-left" />
+        </li>
+        <LanguageSelector
+          id="to"
+          value={toLanguage}
+          onChange={(e) => setToLanguage(e.target.value)}
+          languages={languages}
+          onIconClick={handleIconClick}
+        />
+      </ul>
+      <button
+        onClick={handleTranslate}
+        disabled={loading}
+        aria-busy={loading}
+        aria-label={loading ? "Translating in progress" : "Translate text"}
+      >
         {loading ? "Translating..." : "Translate Text"}
       </button>
-    </>
+    </div>
   );
 };
