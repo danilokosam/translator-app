@@ -38,16 +38,21 @@ export const Translator = () => {
 
   return (
     <div className="wrapper">
+      {/* Display error ❌ */}
       {error && (
         <p className="error" role="alert">
           {error}
         </p>
       )}
+
+      {/* Display loading spinner ⏳ */}
       {loading && (
         <p className="loading" role="status">
           Translating...
         </p>
       )}
+
+      {/* Display text input ✍️*/}
       <div className="text-input">
         <textarea
           className="from-text"
@@ -63,7 +68,9 @@ export const Translator = () => {
           aria-label="Translated text"
         />
       </div>
+
       <ul className="controls">
+        {/* Display language selectors 🌐 */}
         <LanguageSelector
           id="from"
           value={fromLanguage}
@@ -71,14 +78,19 @@ export const Translator = () => {
           languages={languages}
           onIconClick={handleIconClick}
         />
+
+        {/* Display exchange button 🔄*/}
         <li
           className="exchange"
           onClick={handleExchange}
           role="button"
           aria-label="Exchange languages"
         >
+          {/* Display exchange icon 🔄 */}
           <i className="fa-solid fa-arrow-right-arrow-left" />
         </li>
+
+        {/* Display language selector for target language 🌐 */}
         <LanguageSelector
           id="to"
           value={toLanguage}
