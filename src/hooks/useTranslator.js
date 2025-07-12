@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
 import { useDebounce } from "../hooks/useDebounce.js";
-import { useThrottle } from "./useThrottle.js";
 
 export const useTranslator = (
   initialFromLanguage = "en-GB",
@@ -20,11 +19,6 @@ export const useTranslator = (
 
   // Function to handle translation
   const handleTranslate = useCallback(async () => {
-    if (!debouncedFromText.trim()) {
-      setError("Please enter text to translate");
-      setToText("");
-      return;
-    }
     if (debouncedFromText.trim().length < 2) {
       setError("Text must be at least 2 characters long");
       setToText("");
@@ -48,16 +42,14 @@ export const useTranslator = (
     }
   }, [debouncedFromText, debouncedFromLanguage, debouncedToLanguage]);
 
-  // Throttle the translation function to avoid rapid calls
-  const throttledTranslate = useThrottle(handleTranslate, 1000);
-
   useEffect(() => {
-    throttledTranslate();
-  }, [throttledTranslate]);
-
-  useEffect(() => {
+    if (!debouncedFromText) {
+      setToText('');
+      setError(null);
+      return;
+    }
     handleTranslate();
-  }, [handleTranslate]);
+  }, [debouncedFromText, handleTranslate]);
 
   const handleExchange = useCallback(() => {
     setFromText(toText);
