@@ -7,6 +7,7 @@ export const LanguageSelector = ({
 }) => (
   <li className={`row ${id}`}>
     <div className="icons">
+      {/* Icons for speak and copy actions */}
       <i
         className="fa-solid fa-volume-high"
         onClick={() => onIconClick("speak", id)}
@@ -19,7 +20,10 @@ export const LanguageSelector = ({
         role="button"
         aria-label={`Copy ${id === "from" ? "source" : "translated"} text`}
       />
+      {/* Icons for speak and copy actions */}
     </div>
+
+    {/* Dropdown for language selection */}
     <select
       value={value}
       onChange={onChange}
@@ -31,5 +35,6 @@ export const LanguageSelector = ({
         </option>
       ))}
     </select>
+    {/* Dropdown for language selection */}
   </li>
 );
