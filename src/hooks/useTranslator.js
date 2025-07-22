@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useDebounce } from "../hooks/useDebounce.js";
 
 export const useTranslator = (
@@ -11,6 +11,7 @@ export const useTranslator = (
   const [toLanguage, setToLanguage] = useState(initialToLanguage);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const isFirstRun = useRef(true);
 
   // Debounce inputs to avoid excessive API calls
   const debouncedFromText = useDebounce(fromText, 500);
@@ -19,13 +20,7 @@ export const useTranslator = (
 
   // Function to handle translation
   const handleTranslate = useCallback(async () => {
-    if (debouncedFromText.trim().length < 2) {
-      setError("Text must be at least 2 characters long");
-      setToText("");
-      return;
-    }
     setLoading(true);
-    setError(null);
     try {
       const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
         debouncedFromText.trim()
@@ -43,11 +38,27 @@ export const useTranslator = (
   }, [debouncedFromText, debouncedFromLanguage, debouncedToLanguage]);
 
   useEffect(() => {
-    if (!debouncedFromText) {
-      setToText('');
-      setError(null);
+    console.log(
+      "EFFECT RUNNING",
+      debouncedFromText,
+      "isFirstRun:",
+      isFirstRun.current
+    );
+
+    if (isFirstRun.current && debouncedFromText.trim().length === 0) {
+      isFirstRun.current = false;
+      return; // Skip only if it's the first run AND the input is empty
+    }
+    isFirstRun.current = false;
+
+    // If the input text is empty, reset the translated text and show an error
+    if (debouncedFromText.trim().length === 0) {
+      console.log("SETTING ERROR");
+      setToText("");
+      setError("Text must be at least 1 character long");
       return;
     }
+    setError(null);
     handleTranslate();
   }, [debouncedFromText, handleTranslate]);
 
