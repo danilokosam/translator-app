@@ -1,67 +1,93 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useDebounce } from "../hooks/useDebounce.js";
+import { useQuery } from "@tanstack/react-query";
 
 export const useTranslator = (
   initialFromLanguage = "en-GB",
-  initialToLanguage = "hi-IN"
+  initialToLanguage = "es-ES"
 ) => {
   const [fromText, setFromText] = useState("");
   const [toText, setToText] = useState("");
   const [fromLanguage, setFromLanguage] = useState(initialFromLanguage);
   const [toLanguage, setToLanguage] = useState(initialToLanguage);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const isFirstRun = useRef(true);
+  const hasInteracted = useRef(false);
 
   // Debounce inputs to avoid excessive API calls
   const debouncedFromText = useDebounce(fromText, 500);
   const debouncedFromLanguage = useDebounce(fromLanguage, 500);
   const debouncedToLanguage = useDebounce(toLanguage, 500);
 
-  // Function to handle translation
-  const handleTranslate = useCallback(async () => {
-    setLoading(true);
-    try {
-      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-        debouncedFromText.trim()
-      )}&langpair=${debouncedFromLanguage}|${debouncedToLanguage}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Translation API error");
-      const data = await res.json();
-      setToText(data.responseData.translatedText);
-    } catch (error) {
-      setError("Failed to translate. Please try again.");
-      console.error("Translation error:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [debouncedFromText, debouncedFromLanguage, debouncedToLanguage]);
+  // Function to perform the translation
+  const fetchTranslation = async ({ queryKey }) => {
+    const [, { text, fromLang, toLang }] = queryKey;
+    if (!text.trim()) throw new Error("Text must be at least 1 character long");
 
+    const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
+      text.trim()
+    )}&langpair=${fromLang}|${toLang}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Translation API error");
+    const data = await res.json();
+    return data.responseData.translatedText;
+  };
+
+  // Using TanStack Query to manage translation
+  const {
+    data: translatedText,
+    isFetching,
+    error: queryError,
+  } = useQuery({
+    queryKey: [
+      "translation",
+      {
+        text: debouncedFromText,
+        fromLang: debouncedFromLanguage,
+        toLang: debouncedToLanguage,
+      },
+    ],
+    queryFn: fetchTranslation,
+    enabled: debouncedFromText.trim().length > 0, // Only execute if there is text
+    retry: 1, // Retry only once in case of error
+    staleTime: 1000 * 60 * 60, // Cache for 1 hour
+  });
+
+  // Detect if the user has interacted with the input
   useEffect(() => {
-    console.log(
-      "EFFECT RUNNING",
-      debouncedFromText,
-      "isFirstRun:",
-      isFirstRun.current
-    );
-
-    if (isFirstRun.current && debouncedFromText.trim().length === 0) {
-      isFirstRun.current = false;
-      return; // Skip only if it's the first run AND the input is empty
+    if (!hasInteracted.current && fromText.trim().length > 0) {
+      console.log("User interaction detected:", fromText);
+      hasInteracted.current = true; // User has typed something
+      console.log("User has interacted with the input. Actual state:", {
+        fromText,
+      });
     }
-    isFirstRun.current = false;
+  }, [fromText]);
 
-    // If the input text is empty, reset the translated text and show an error
+  // Update the error status and toText according to the query result
+  useEffect(() => {
+    // If the hasInteracted flag is false and the debounced text is empty, do nothing
+    if (!hasInteracted.current && debouncedFromText.trim().length === 0) {
+      return;
+    }
+
+    // If the debounced text is empty and, set toText to empty and show an error
     if (debouncedFromText.trim().length === 0) {
-      console.log("SETTING ERROR");
       setToText("");
       setError("Text must be at least 1 character long");
       return;
     }
-    setError(null);
-    handleTranslate();
-  }, [debouncedFromText, handleTranslate]);
 
+    // If there is an error from the query, set the error message and clear toText
+    if (queryError) {
+      setError("Failed to translate. Please try again.");
+      setToText("");
+    } else if (translatedText) {
+      setToText(translatedText);
+      setError(null);
+    }
+  }, [debouncedFromText, translatedText, queryError]);
+
+  // Language and text exchange function
   const handleExchange = useCallback(() => {
     setFromText(toText);
     setToText(fromText);
@@ -78,9 +104,9 @@ export const useTranslator = (
     setFromLanguage,
     toLanguage,
     setToLanguage,
-    loading,
+    loading: isFetching,
     error,
-    handleTranslate,
+    // handleTranslate: () => {}, // Not used, delete later
     handleExchange,
   };
 };
