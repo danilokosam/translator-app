@@ -3,7 +3,7 @@ import { Translator } from "./components/Translator";
 
 function App() {
   return (
-    <div className="container">
+    <div className="container h-screen my-auto align-middle items-center">
       <Translator />
     </div>
   );
