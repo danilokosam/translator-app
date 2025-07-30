@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-export const useInteractionTracker = (text) => {
+export const useInteractionTracker = (text, exposeRef = false) => {
   // useRef is used to keep track of whether interaction has already been detected
   // It persists across re-renders without causing re-renders when changed
   const hasInteracted = useRef(false);
@@ -18,5 +18,5 @@ export const useInteractionTracker = (text) => {
   }, [text]); // Re-run this effect only when `text` changes
 
   // Return the interaction status (true if user has entered text at least once)
-  return hasInteracted.current;
+  return exposeRef ? hasInteracted : hasInteracted.current;
 };
