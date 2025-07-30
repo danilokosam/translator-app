@@ -40,22 +40,21 @@ export const Translator = () => {
 	return (
 		<div className="wrapper h-[calc(100%-20px)] flex flex-col justify-between">
 			{/* Display error ❌ */}
-			{error && (
-				<p className="error" role="alert">
-					{error}
-				</p>
-			)}
+			<div className="h-72 w-full bg-blue-500 text-center p-12">
+				<p className="text-4xl font-bold ">Translate app 🔥</p>
+			</div>
 
 			<DisplayTextInput
 				loading={loading}
 				toText={toText}
 				fromText={fromText}
+				error={error}
 				setFromText={setFromText}
 				onIconClick={handleIconClick}
 			/>
-			<ul className="controls flex justify-around relative ">
+			<ul className="controls flex justify-around relative bg-white ">
 				{/* Display language selectors 🌐 */}
-				<div className="bg-white text-gray-700 px-16 py-5 rounded-4xl font-semibold">
+				<div className="bg-white text-gray-700 px-16 py-5 rounded-4xl font-semibold shadow-xl">
 					<LanguageSelector
 						id="from"
 						value={fromLanguage}
@@ -67,7 +66,7 @@ export const Translator = () => {
 
 				{/* Display exchange button 🔄*/}
 				<li
-					className="exchange absolute px-7 py-5 bg-gray-100 rounded-full"
+					className="exchange absolute px-7 py-5 bg-gray-100 rounded-full shadow-xl"
 					onClick={handleExchange}
 					role="button"
 					aria-label="Exchange languages"
@@ -77,7 +76,7 @@ export const Translator = () => {
 				</li>
 
 				{/* Display language selector for target language 🌐 */}
-				<div className="px-16 py-5 rounded-4xl bg-blue-600 text-white font-semibold">
+				<div className="px-16 py-5 rounded-4xl bg-blue-600 text-white font-semibold shadow-xl">
 					<LanguageSelector
 						id="to"
 						value={toLanguage}
