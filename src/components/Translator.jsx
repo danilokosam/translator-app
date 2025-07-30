@@ -38,7 +38,7 @@ export const Translator = () => {
 	);
 
 	return (
-		<div className="wrapper">
+		<div className="wrapper h-[calc(100%-20px)] flex flex-col justify-between">
 			{/* Display error ❌ */}
 			{error && (
 				<p className="error" role="alert">
@@ -46,35 +46,28 @@ export const Translator = () => {
 				</p>
 			)}
 
-			{/* Display loading spinner ⏳ */}
-			{loading && (
-				<p className="loading" role="status">
-					Translating...
-				</p>
-			)}
-
 			<DisplayTextInput
+				loading={loading}
 				toText={toText}
 				fromText={fromText}
 				setFromText={setFromText}
 				onIconClick={handleIconClick}
 			/>
-			<ul className="controls flex justify-around ">
+			<ul className="controls flex justify-around relative ">
 				{/* Display language selectors 🌐 */}
-        <div className="bg-white px-6 py-3 rounded-4xl">
-
-				<LanguageSelector
-					id="from"
-					value={fromLanguage}
-					onChange={(e) => setFromLanguage(e.target.value)}
-					languages={languages}
-					onIconClick={handleIconClick}
-          />
-          </div>
+				<div className="bg-white text-gray-700 px-16 py-5 rounded-4xl font-semibold">
+					<LanguageSelector
+						id="from"
+						value={fromLanguage}
+						onChange={(e) => setFromLanguage(e.target.value)}
+						languages={languages}
+						onIconClick={handleIconClick}
+					/>
+				</div>
 
 				{/* Display exchange button 🔄*/}
 				<li
-					className="exchange px-6 py-3"
+					className="exchange absolute px-7 py-5 bg-gray-100 rounded-full"
 					onClick={handleExchange}
 					role="button"
 					aria-label="Exchange languages"
@@ -84,16 +77,15 @@ export const Translator = () => {
 				</li>
 
 				{/* Display language selector for target language 🌐 */}
-        <div className="px-6 py-3 rounded-4xl">
-
-				<LanguageSelector
-					id="to"
-					value={toLanguage}
-					onChange={(e) => setToLanguage(e.target.value)}
-					languages={languages}
-					onIconClick={handleIconClick}
-          />
-          </div>
+				<div className="px-16 py-5 rounded-4xl bg-blue-600 text-white font-semibold">
+					<LanguageSelector
+						id="to"
+						value={toLanguage}
+						onChange={(e) => setToLanguage(e.target.value)}
+						languages={languages}
+						onIconClick={handleIconClick}
+					/>
+				</div>
 			</ul>
 		</div>
 	);
