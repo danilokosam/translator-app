@@ -1,12 +1,19 @@
 import { ActionsButtons } from "./ActionsButtons";
 
-export const DisplayTextInput = ({ fromText, setFromText, toText, onIconClick, loading }) => {
+export const DisplayTextInput = ({
+	fromText,
+	setFromText,
+	toText,
+	onIconClick,
+	loading,
+	error,
+}) => {
 	return (
 		<>
 			{/* Display text input ✍️*/}
 			<div className="text-input flex flex-col justify-between ">
-				<div className="w-full bg-white/80 p-6 rounded-md ">
-					<ActionsButtons id="from" onIconClick={onIconClick} />
+				<div className="w-full bg-blue-100 p-6 rounded-md ">
+					<ActionsButtons error={error} id="from" onIconClick={onIconClick} />
 					<textarea
 						className="from-text w-full min-h-[200px] py-2 outline-0  "
 						placeholder="Enter Text"
