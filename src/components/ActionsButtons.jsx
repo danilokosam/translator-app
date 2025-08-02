@@ -1,7 +1,7 @@
 export const ActionsButtons = ({ id, onIconClick, error }) => {
 	return (
 		<>
-			<div className="icons flex justify-between ">
+			<div className="icons flex justify-between px-4">
 				{/* Icons for speak and copy actions */}
 				<i
 					className="fa-solid fa-volume-high"

@@ -38,10 +38,14 @@ export const Translator = () => {
 	);
 
 	return (
-		<div className="wrapper h-[calc(100%-20px)] flex flex-col justify-between">
+		<div className="wrapper max-w-2xl h-[calc(100%-20px)] bg-blue-600 flex flex-col justify-between">
 			{/* Display error ❌ */}
-			<div className="h-72 w-full bg-blue-500 text-center p-12">
-				<p className="text-4xl font-bold ">Translate app 🔥</p>
+			<div className="relative bg-blue-200">
+				<strong className="absolute right-[9%] top-[22%] text-2xl bg-white rounded-xl px-3 py-1">T</strong>
+
+			<div className="h-24 w-7/8 bg-blue-600 rounded-br-[60px]  text-center p-6">
+				<p className="text-2xl font-bold text-end ">🔥 Text to Translate</p>
+			</div>
 			</div>
 
 			<DisplayTextInput
