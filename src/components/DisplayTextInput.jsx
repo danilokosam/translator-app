@@ -14,7 +14,8 @@ export const DisplayTextInput = ({
 			<div className="text-input   flex flex-col justify-between ">
 				<div className="bg-gradient-to-b from-blue-600 to-white">
 					<div className="relative w-full bg-blue-200 p-6 rounded-tl-[50px] rounded-br-[50px]  ">
-						<ActionsButtons error={error} id="from" onIconClick={onIconClick} />
+						<ActionsButtons error={error} id="from" onIconClick={onIconClick} resetForm={setFromText} />
+						
 						<textarea
 							className="from-text  w-full min-h-[300px] p-4 outline-0  "
 							placeholder="Enter Text"
@@ -28,15 +29,15 @@ export const DisplayTextInput = ({
 					<div className="w-full bg-white p-6 rounded-tl-[50px]  ">
 						<ActionsButtons id="to" onIconClick={onIconClick} />
 						{/* Display loading spinner ⏳ */}
-						{loading && (
+						{/* {loading && (
 							<p className="loading transition-all" role="status">
 								Translating...
 							</p>
-						)}
+						)} */}
 
 						<textarea
 							className="to-text from-text  w-full min-h-[340px] p-4 outline-0"
-							value={toText}
+							value={loading ? "Translating..." :toText}
 							readOnly
 							aria-label="Translated text"
 						/>

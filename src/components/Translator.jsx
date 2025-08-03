@@ -1,10 +1,11 @@
 import languages from "../utils/languaje.js";
 import { useTranslator } from "../hooks/useTranslator.js";
 import { LanguageSelector } from "./LanguageSelector.jsx";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { DisplayTextInput } from "./DisplayTextInput.jsx";
 
 export const Translator = () => {
+	const [toggle, setToggle] = useState(false)
 	const {
 		fromText,
 		setFromText,
@@ -16,6 +17,7 @@ export const Translator = () => {
 		loading,
 		error,
 		handleExchange,
+		rotateAnimation,
 	} = useTranslator();
 
 	const handleIconClick = useCallback(
@@ -37,15 +39,19 @@ export const Translator = () => {
 		[fromText, toText, fromLanguage, toLanguage]
 	);
 
+	
+
 	return (
-		<div className="wrapper max-w-2xl h-[calc(100%-20px)] bg-blue-600 flex flex-col justify-between">
+		<div className="wrapper  h-[calc(100%-20px)] bg-blue-600 flex flex-col justify-between">
 			{/* Display error ❌ */}
 			<div className="relative bg-blue-200">
-				<strong className="absolute right-[9%] top-[22%] text-2xl bg-white rounded-xl px-3 py-1">T</strong>
+				<strong className="absolute right-[9%] top-[22%] text-2xl bg-white rounded-xl px-3 py-1">
+					T
+				</strong>
 
-			<div className="h-24 w-7/8 bg-blue-600 rounded-br-[60px]  text-center p-6">
-				<p className="text-2xl font-bold text-end ">🔥 Text to Translate</p>
-			</div>
+				<div className="h-24 w-7/8 bg-gradient-to-l from-blue-500 to-blue-600 to-30% rounded-br-[60px]  text-center p-6">
+					<p className="text-2xl font-bold text-end ">🔥 Text to Translate</p>
+				</div>
 			</div>
 
 			<DisplayTextInput
@@ -58,7 +64,7 @@ export const Translator = () => {
 			/>
 			<ul className="controls flex justify-around relative bg-white ">
 				{/* Display language selectors 🌐 */}
-				<div className="bg-white text-gray-700 px-16 py-5 rounded-4xl font-semibold shadow-xl">
+				<div className="bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700 px-16 py-5 rounded-4xl font-semibold shadow-xl ">
 					<LanguageSelector
 						id="from"
 						value={fromLanguage}
@@ -70,17 +76,17 @@ export const Translator = () => {
 
 				{/* Display exchange button 🔄*/}
 				<li
-					className="exchange absolute px-7 py-5 bg-gray-100 rounded-full shadow-xl"
-					onClick={handleExchange}
+					className="exchange absolute px-7 py-5 bg-gradient-to-t from-gray-100 to-gray-200 hover:to-gray-300 rounded-full shadow-xl cursor-pointer"
+					onClick={ handleExchange }
 					role="button"
 					aria-label="Exchange languages"
 				>
 					{/* Display exchange icon 🔄 hacer animación */}
-					<i className="fa-solid fa-arrow-right-arrow-left rotate-180 transition-all" />
+					<i style={{transform: `${rotateAnimation}`}} className="fa-solid fa-arrow-right-arrow-left transition-all duration-300 ease-in-out " />
 				</li>
 
 				{/* Display language selector for target language 🌐 */}
-				<div className="px-16 py-5 rounded-4xl bg-blue-600 text-white font-semibold shadow-xl">
+				<div className="px-16 py-5 rounded-4xl bg-gradient-to-t  from-blue-600 to-blue-500 hover:to-blue-700 text-white font-semibold shadow-xl">
 					<LanguageSelector
 						id="to"
 						value={toLanguage}

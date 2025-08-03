@@ -1,10 +1,10 @@
-export const ActionsButtons = ({ id, onIconClick, error }) => {
+export const ActionsButtons = ({ id, onIconClick, error, resetForm }) => {
 	return (
 		<>
 			<div className="icons flex justify-between px-4">
 				{/* Icons for speak and copy actions */}
 				<i
-					className="fa-solid fa-volume-high"
+					className="fa-solid fa-volume-high cursor-pointer"
 					onClick={() => onIconClick("speak", id)}
 					role="button"
 					aria-label={`Speak ${id === "from" ? "source" : "translated"} text`}
@@ -17,12 +17,21 @@ export const ActionsButtons = ({ id, onIconClick, error }) => {
 						{error}
 					</span>
 				)}
-				<i
-					className="fa-solid fa-copy"
-					onClick={() => onIconClick("copy", id)}
-					role="button"
-					aria-label={`Copy ${id === "from" ? "source" : "translated"} text`}
-				/>
+				<div className="flex ">
+					<i
+						className="fa-solid fa-copy mr-6 cursor-pointer"
+						onClick={() => onIconClick("copy", id)}
+						role="button"
+						aria-label={`Copy ${id === "from" ? "source" : "translated"} text`}
+					/>
+
+					{id === "from" ? (
+						<i onClick={() => resetForm("")} class="fa-solid fa-xmark cursor-pointer"></i>
+					) : (
+						""
+					)}
+				</div>
+
 				{/* Icons for speak and copy actions */}
 			</div>
 		</>
