@@ -17,8 +17,8 @@ export const DisplayTextInput = ({
 						<ActionsButtons error={error} id="from" onIconClick={onIconClick} resetForm={setFromText} />
 						
 						<textarea
-							className="from-text  w-full min-h-[300px] p-4 outline-0  "
-							placeholder="Enter Text"
+							className="from-text text-2xl  w-full min-h-[300px] p-4 outline-0  "
+							placeholder="Enter your text"
 							value={fromText}
 							onChange={(e) => setFromText(e.target.value)}
 							aria-label="Source text for translation"
@@ -36,7 +36,8 @@ export const DisplayTextInput = ({
 						)} */}
 
 						<textarea
-							className="to-text from-text  w-full min-h-[340px] p-4 outline-0"
+							className="to-text from-text text-2xl w-full min-h-[340px] p-4 outline-0"
+							placeholder="Translation"
 							value={loading ? "Translating..." :toText}
 							readOnly
 							aria-label="Translated text"

@@ -45,12 +45,12 @@ export const Translator = () => {
 		<div className="wrapper  h-[calc(100%-20px)] bg-blue-600 flex flex-col justify-between">
 			{/* Display error ❌ */}
 			<div className="relative bg-blue-200">
-				<strong className="absolute right-[9%] top-[22%] text-2xl bg-white rounded-xl px-3 py-1">
+				<strong className="absolute right-[9%] top-[22%] text-4xl bg-white rounded-xl px-3 py-1">
 					T
 				</strong>
 
-				<div className="h-24 w-7/8 bg-gradient-to-l from-blue-500 to-blue-600 to-30% rounded-br-[60px]  text-center p-6">
-					<p className="text-2xl font-bold text-end ">🔥 Text to Translate</p>
+				<div className="h-24 w-7/8 bg-gradient-to-l from-blue-500 to-blue-600 to-30% rounded-br-[60px]  text-center p-6 pr-12">
+					<p className="text-4xl font-bold text-end">🔥 Text to Translate</p>
 				</div>
 			</div>
 
@@ -62,9 +62,9 @@ export const Translator = () => {
 				setFromText={setFromText}
 				onIconClick={handleIconClick}
 			/>
-			<ul className="controls flex justify-around relative bg-white ">
+			<ul className="controls flex justify-around relative bg-white -mt-2">
 				{/* Display language selectors 🌐 */}
-				<div className="bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700 px-16 py-5 rounded-4xl font-semibold shadow-xl ">
+				<div className="bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700 px-2 py-2 rounded-4xl font-semibold shadow-xl ">
 					<LanguageSelector
 						id="from"
 						value={fromLanguage}
@@ -86,7 +86,7 @@ export const Translator = () => {
 				</li>
 
 				{/* Display language selector for target language 🌐 */}
-				<div className="px-16 py-5 rounded-4xl bg-gradient-to-t  from-blue-600 to-blue-500 hover:to-blue-700 text-white font-semibold shadow-xl">
+				<div className="px-2 py-2 rounded-4xl bg-gradient-to-t  from-blue-600 to-blue-500 hover:to-blue-700 text-white font-semibold shadow-xl">
 					<LanguageSelector
 						id="to"
 						value={toLanguage}
