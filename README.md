@@ -20,6 +20,39 @@
 <img alt="Testing Library" src="https://img.shields.io/badge/Testing_Library-E33332.svg?style=flat&logo=testing-library&logoColor=white" class="inline-block mx-1" style="margin: 0px 2px;">
 </div>
 
+## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [What are we looking for with this project?](#what-are-we-looking-for-with-this-project)
+- [Features](#features)
+- [Main Technologies](#main-technologies)
+  - [Development \& Testing:](#development--testing)
+  - [Additional Tools:](#additional-tools)
+- [Project Structure Overview](#project-structure-overview)
+  - [Root](#root)
+  - [public/](#public)
+  - [src/](#src)
+    - [components/](#components)
+    - [hooks/](#hooks)
+    - [services/](#services)
+    - [utils/](#utils)
+    - [tests/](#tests)
+- [Screenshots](#screenshots)
+- [Installation \& Setup](#installation--setup)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Acknowledgments](#acknowledgments)
+  - [Prerequisites](#prerequisites)
+  - [Steps](#steps)
+- [Available Scripts](#available-scripts)
+- [API Integration](#api-integration)
+- [Performance Optimizations](#performance-optimizations)
+- [Testing Strategy](#testing-strategy)
+- [Browser Compatibility](#browser-compatibility)
+- [Contributing](#contributing-1)
+- [License](#license)
+- [Changelog](#changelog)
+
 ## Introduction
 Translator App is a modern real-time translation application built with React and Vite, featuring instant text translation between multiple languages. The application provides a seamless user experience with advanced features like debounced input, text-to-speech functionality, and comprehensive testing coverage.
 
@@ -75,32 +108,100 @@ This project was developed using a robust set of modern, in-demand technologies,
 ### src/
 - `main.jsx`: Application entry point and React DOM rendering.
 - `App.jsx`: Main application component and routing setup.
-- `App.css`, `index.css`: Global styles and component-specific styling.
+- `index.css`: Global styles and theme configuration.
 
 #### components/
-- `Translator.jsx`: Main translator component with text input, translation display, and controls.
-- `LanguageSelector.jsx`: Reusable language selection component with action icons.
+- `Translator.jsx`: Main translator component orchestrating the translation interface.
+- `LanguageSelector.jsx`: Language selection component with search and filtering.
+- `DisplayTextInput.jsx`: Text input and display component with real-time updates.
+- `ActionsButtons.jsx`: Component containing translation action controls.
 
 #### hooks/
-- `useTranslator.js`: Custom hook managing translation state, API calls, and language exchange.
-- `useDebounce.js`: Performance optimization hook for delaying API calls.
-- `useThrottle.js`: Rate limiting hook for preventing excessive function calls.
+- `useTranslator.js`: Core translation logic and API integration.
+- `useTranslationState.js`: State management for translation data.
+- `useTranslationQuery.js`: API query management and caching.
+- `useDebounce.js`: Performance optimization for input handling.
+- `useThrottle.js`: Rate limiting for API requests.
+- `useInteractionTracker.js`: User interaction tracking and analytics.
+
+#### services/
+- `translationApi.js`: API service layer for translation requests.
 
 #### utils/
-- `languaje.js`: Language codes and names mapping for 90+ supported languages.
+- `languaje.js`: Language configuration and localization utilities.
+- `errorHandler.js`: Centralized error handling and user feedback.
 
 #### tests/
-- `Translator.test.jsx`: Comprehensive tests for main translator component.
-- `LanguageSelector.test.jsx`: Unit tests for language selector component.
-- `useTranslator.test.js`: Hook testing for translation logic and state management.
-- `useDebounce.test.js`: Performance hook testing and timing validation.
-- `useThrottle.test.js`: Rate limiting hook testing and behavior verification.
+Comprehensive test suite covering all major components and utilities:
+- `Translator.test.jsx`
+- `LanguageSelector.test.jsx`
+- `translationApi.test.js`
+- `useTranslator.test.js`
+- `useTranslationState.test.js`
+- `useTranslationQuery.test.jsx`
+- `useDebounce.test.js`
+- `useThrottle.test.js`
+- `useInteractionTracker.test.js`
+- `errorHandler.test.js`
+
+## Screenshots
+
+![](../translator-app/public/captura1.png)
+
+![](../translator-app/public/captura2.png)
 
 ## Installation & Setup
 
+```bash
+# Clone the repository
+git clone https://github.com/danilokosam/translator-app.git
+
+# Navigate to project directory
+cd translator-app
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Run tests
+npm test
+
+# Build for production
+npm run build
+```
+
+## Usage
+
+1. Select your source language from the dropdown menu
+2. Enter the text you want to translate in the input field
+3. Select your target language
+4. The translation will appear automatically
+5. Use the additional features:
+   - Click the speaker icon to hear the pronunciation
+   - Use the copy button to copy the translation
+   - Click the swap button to exchange languages
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Acknowledgments
+
+- MyMemory Translation API for providing translation services
+- The React community for excellent documentation and resources
+- All contributors who have helped improve this project
+
 ### Prerequisites
 - Node.js (v16 or higher)
-- npm or yarn package manager
+- npm
 
 ### Steps
 1. **Clone the repository**
