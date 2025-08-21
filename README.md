@@ -50,8 +50,6 @@
 - [Testing Strategy](#testing-strategy)
 - [Browser Compatibility](#browser-compatibility)
 - [Contributing](#contributing-1)
-- [License](#license)
-- [Changelog](#changelog)
 
 ## Introduction
 Translator App is a modern real-time translation application built with React and Vite, featuring instant text translation between multiple languages. The application provides a seamless user experience with advanced features like debounced input, text-to-speech functionality, and comprehensive testing coverage.
@@ -283,13 +281,3 @@ The project includes comprehensive testing coverage:
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-## Changelog
-
-- **July 16, 2025**:  Readme Update
