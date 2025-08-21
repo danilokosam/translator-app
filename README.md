@@ -21,7 +21,6 @@
 </div>
 
 ## Table of Contents
-- [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
 - [What are we looking for with this project?](#what-are-we-looking-for-with-this-project)
 - [Features](#features)
@@ -29,14 +28,6 @@
   - [Development \& Testing:](#development--testing)
   - [Additional Tools:](#additional-tools)
 - [Project Structure Overview](#project-structure-overview)
-  - [Root](#root)
-  - [public/](#public)
-  - [src/](#src)
-    - [components/](#components)
-    - [hooks/](#hooks)
-    - [services/](#services)
-    - [utils/](#utils)
-    - [tests/](#tests)
 - [Screenshots](#screenshots)
 - [Installation \& Setup](#installation--setup)
 - [Usage](#usage)
