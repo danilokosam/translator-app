@@ -16,7 +16,7 @@ describe("useDebounce hook", () => {
       ({ value, delay }) => useDebounce(value, delay),
       {
         initialProps: { value: "test", delay: 500 },
-      }
+      },
     );
 
     expect(result.current).toBe("test"); // Initial value should be 'test'

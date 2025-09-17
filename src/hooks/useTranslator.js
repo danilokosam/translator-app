@@ -5,7 +5,7 @@ import { useTranslationState } from "./useTranslationState.js";
 
 export const useTranslator = (
   initialFromLanguage = "en-GB",
-  initialToLanguage = "es-ES"
+  initialToLanguage = "es-ES",
 ) => {
   // Language and text state
   const [fromText, setFromText] = useState("");
@@ -23,13 +23,13 @@ export const useTranslator = (
   const queryResult = useTranslationQuery(
     debouncedFromText,
     debouncedFromLanguage,
-    debouncedToLanguage
+    debouncedToLanguage,
   );
 
   // Translation state management
   const { toText, setToText, error } = useTranslationState(
     debouncedFromText,
-    queryResult
+    queryResult,
   );
 
   // Exchange function

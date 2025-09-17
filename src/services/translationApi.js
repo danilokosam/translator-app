@@ -15,13 +15,13 @@ export const translationApi = {
     if (!text?.trim()) {
       throw new TranslationApiError(
         "Text must be at least 1 character long",
-        400 // Bad Request
+        400, // Bad Request
       );
     }
 
     // Construct the API URL with encoded query text and language pair
     const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(
-      text.trim()
+      text.trim(),
     )}&langpair=${fromLang}|${toLang}`;
 
     // Make the HTTP request to the translation API

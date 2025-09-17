@@ -97,7 +97,7 @@ describe("useThrottle", () => {
       ({ fn, delay }) => useThrottle(fn, delay),
       {
         initialProps: { fn: func1, delay: limit1 },
-      }
+      },
     );
     const throttledFunc1 = result.current; // Store the throttled function
 

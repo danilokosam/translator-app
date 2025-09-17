@@ -11,6 +11,6 @@ export const useThrottle = (func, limit) => {
         return func(...args);
       }
     },
-    [func, limit]
+    [func, limit],
   );
 };

@@ -44,7 +44,7 @@ describe("useTranslationQuery", () => {
     it("should not execute query when text is empty", () => {
       const { result } = renderHook(
         () => useTranslationQuery("", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(translationApi.translate).not.toHaveBeenCalled();
@@ -55,7 +55,7 @@ describe("useTranslationQuery", () => {
     it("should not execute query when text is only whitespace", () => {
       const { result } = renderHook(
         () => useTranslationQuery("   ", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(translationApi.translate).not.toHaveBeenCalled();
@@ -66,7 +66,7 @@ describe("useTranslationQuery", () => {
     it("should not execute query when text is null", () => {
       const { result } = renderHook(
         () => useTranslationQuery(null, "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(translationApi.translate).not.toHaveBeenCalled();
@@ -77,7 +77,7 @@ describe("useTranslationQuery", () => {
     it("should not execute query when text is undefined", () => {
       const { result } = renderHook(
         () => useTranslationQuery(undefined, "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(translationApi.translate).not.toHaveBeenCalled();
@@ -90,7 +90,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(result.current.isFetching).toBe(true);
@@ -102,7 +102,7 @@ describe("useTranslationQuery", () => {
       expect(translationApi.translate).toHaveBeenCalledWith(
         "Hello",
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
       expect(result.current.data).toBe("Hola");
       expect(result.current.error).toBe(null);
@@ -115,7 +115,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello world", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {
@@ -132,7 +132,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {
@@ -149,7 +149,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello, how are you!", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {
@@ -167,15 +167,18 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
-      await waitFor(() => {
-        console.log("isError:", result.current.isError);
-        console.log("isFetching:", result.current.isFetching);
-        expect(result.current.isError).toBe(true);
-        expect(result.current.isFetching).toBe(false);
-      }, { timeout: 5000 });
+      await waitFor(
+        () => {
+          console.log("isError:", result.current.isError);
+          console.log("isFetching:", result.current.isFetching);
+          expect(result.current.isError).toBe(true);
+          expect(result.current.isFetching).toBe(false);
+        },
+        { timeout: 5000 },
+      );
 
       expect(result.current.data).toBeUndefined();
       expect(result.current.error).toBe(apiError);
@@ -198,14 +201,14 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(
         () => {
           expect(result.current.isFetching).toBe(false);
         },
-        { timeout: 5000 }
+        { timeout: 5000 },
       );
 
       // Should be called twice: initial + 1 retry
@@ -226,7 +229,7 @@ describe("useTranslationQuery", () => {
         {
           wrapper,
           initialProps: { text: "Hello" },
-        }
+        },
       );
 
       await waitFor(() => {
@@ -244,13 +247,13 @@ describe("useTranslationQuery", () => {
         1,
         "Hello",
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
       expect(translationApi.translate).toHaveBeenNthCalledWith(
         2,
         "World",
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
     });
 
@@ -264,7 +267,7 @@ describe("useTranslationQuery", () => {
         {
           wrapper,
           initialProps: { fromLang: "en-GB" },
-        }
+        },
       );
 
       await waitFor(() => {
@@ -282,13 +285,13 @@ describe("useTranslationQuery", () => {
         1,
         "Hello",
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
       expect(translationApi.translate).toHaveBeenNthCalledWith(
         2,
         "Hello",
         "fr-FR",
-        "es-ES"
+        "es-ES",
       );
     });
 
@@ -302,7 +305,7 @@ describe("useTranslationQuery", () => {
         {
           wrapper,
           initialProps: { toLang: "es-ES" },
-        }
+        },
       );
 
       await waitFor(() => {
@@ -320,13 +323,13 @@ describe("useTranslationQuery", () => {
         1,
         "Hello",
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
       expect(translationApi.translate).toHaveBeenNthCalledWith(
         2,
         "Hello",
         "en-GB",
-        "fr-FR"
+        "fr-FR",
       );
     });
   });
@@ -342,7 +345,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(result.current.isFetching).toBe(true);
@@ -362,7 +365,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       // Initially loading
@@ -387,7 +390,7 @@ describe("useTranslationQuery", () => {
 
       const { result: result1 } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {
@@ -397,7 +400,7 @@ describe("useTranslationQuery", () => {
       // Second hook with same parameters should use cache
       const { result: result2 } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       // Should immediately have data from cache
@@ -412,12 +415,12 @@ describe("useTranslationQuery", () => {
     it("should be enabled only when text has content", () => {
       const { result: emptyResult } = renderHook(
         () => useTranslationQuery("", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       const { result: contentResult } = renderHook(
         () => useTranslationQuery("Hello", "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       expect(emptyResult.current.isFetching).toBe(false);
@@ -434,7 +437,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery(longText, "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {
@@ -444,7 +447,7 @@ describe("useTranslationQuery", () => {
       expect(translationApi.translate).toHaveBeenCalledWith(
         longText,
         "en-GB",
-        "es-ES"
+        "es-ES",
       );
     });
 
@@ -456,7 +459,7 @@ describe("useTranslationQuery", () => {
 
       const { result } = renderHook(
         () => useTranslationQuery(unicodeText, "en-GB", "es-ES"),
-        { wrapper }
+        { wrapper },
       );
 
       await waitFor(() => {

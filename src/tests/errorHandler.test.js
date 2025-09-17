@@ -7,7 +7,7 @@ describe("errorHandler", () => {
     it("should return custom message for TranslationApiError", () => {
       const error = new TranslationApiError(
         "Text must be at least 1 character long",
-        400
+        400,
       );
 
       const result = getErrorMessage(error);

@@ -13,12 +13,12 @@ describe("LanguageSelector component", () => {
   test("should render correctly", () => {
     render(
       <LanguageSelector
-        id="from" // Unique ID for the selector
-        value="en-GB" // Initial selected language
+        id='from' // Unique ID for the selector
+        value='en-GB' // Initial selected language
         onChange={() => {}} // Mock function for onChange event handler
         languages={languages} // Available languages to display
         onIconClick={() => {}} // Placeholder for onIconClick event handler
-      />
+      />,
     );
 
     expect(screen.getByLabelText("Select from language")).toBeInTheDocument(); // Check if the select element is present
@@ -30,12 +30,12 @@ describe("LanguageSelector component", () => {
     const onChange = vi.fn();
     render(
       <LanguageSelector
-        id="from"
-        value="en-GB"
+        id='from'
+        value='en-GB'
         onChange={onChange} // Pass the mock function to onChange
         languages={languages}
         onIconClick={() => {}}
-      />
+      />,
     );
 
     const select = screen.getByLabelText("Select from language"); // Get the select element by its label

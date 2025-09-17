@@ -113,7 +113,7 @@ describe("useTranslator", () => {
       expect(useTranslationQuery).toHaveBeenCalledWith(
         "debounced-text",
         "debounced-from",
-        "debounced-to"
+        "debounced-to",
       );
     });
 
@@ -131,7 +131,7 @@ describe("useTranslator", () => {
 
       expect(useTranslationState).toHaveBeenCalledWith(
         "hello",
-        mockQueryResult
+        mockQueryResult,
       );
     });
   });
@@ -324,7 +324,7 @@ describe("useTranslator", () => {
       const { result } = renderHook(() => useTranslator());
 
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
       expect(result.current.toText).toBe("");
       expect(result.current.loading).toBe(false);
@@ -445,7 +445,7 @@ describe("useTranslator", () => {
       const veryLongLanguageCode = "x".repeat(100);
 
       const { result } = renderHook(() =>
-        useTranslator(veryLongLanguageCode, veryLongLanguageCode)
+        useTranslator(veryLongLanguageCode, veryLongLanguageCode),
       );
 
       expect(result.current.fromLanguage).toBe(veryLongLanguageCode);
@@ -473,14 +473,14 @@ describe("useTranslator", () => {
       const initialQueryCalls = queryCallCount;
       const initialStateCalls = stateCallCount;
 
-    //   console.log("Initial calls:", initialQueryCalls, initialStateCalls);
+      //   console.log("Initial calls:", initialQueryCalls, initialStateCalls);
 
       // Multiple re-renders shouldn't cause hook calls to multiply excessively
       rerender();
       rerender();
 
-    //   console.log("Query calls:", queryCallCount);
-    //   console.log("State calls:", stateCallCount);
+      //   console.log("Query calls:", queryCallCount);
+      //   console.log("State calls:", stateCallCount);
 
       expect(queryCallCount - initialQueryCalls).toBeLessThanOrEqual(2);
       expect(stateCallCount - initialStateCalls).toBeLessThanOrEqual(2);

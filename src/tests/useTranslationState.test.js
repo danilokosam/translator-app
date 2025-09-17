@@ -54,7 +54,7 @@ describe("useTranslationState", () => {
       const queryResult = { data: undefined, error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState("   ", queryResult)
+        useTranslationState("   ", queryResult),
       );
 
       expect(result.current.toText).toBe("");
@@ -66,7 +66,7 @@ describe("useTranslationState", () => {
       const queryResult = { data: undefined, error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState(null, queryResult)
+        useTranslationState(null, queryResult),
       );
 
       expect(result.current.toText).toBe("");
@@ -83,7 +83,7 @@ describe("useTranslationState", () => {
 
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
     });
 
@@ -92,12 +92,12 @@ describe("useTranslationState", () => {
       const queryResult = { data: undefined, error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState("   ", queryResult)
+        useTranslationState("   ", queryResult),
       );
 
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
     });
 
@@ -107,7 +107,7 @@ describe("useTranslationState", () => {
 
       const { result, rerender } = renderHook(
         ({ debouncedText }) => useTranslationState(debouncedText, queryResult),
-        { initialProps: { debouncedText: "" } }
+        { initialProps: { debouncedText: "" } },
       );
 
       // Initially no interaction, no error
@@ -119,7 +119,7 @@ describe("useTranslationState", () => {
 
       // Now should show error because user has interacted but text is empty
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
     });
   });
@@ -133,12 +133,12 @@ describe("useTranslationState", () => {
       getErrorMessage.mockReturnValue("Failed to translate. Please try again.");
 
       const { result } = renderHook(() =>
-        useTranslationState("hello", queryResult)
+        useTranslationState("hello", queryResult),
       );
 
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
       expect(getErrorMessage).toHaveBeenCalledWith(queryError);
     });
@@ -151,7 +151,7 @@ describe("useTranslationState", () => {
       getErrorMessage.mockReturnValue("Network connection failed");
 
       const { result } = renderHook(() =>
-        useTranslationState("hello", queryResult)
+        useTranslationState("hello", queryResult),
       );
 
       expect(result.current.error).toBe("Network connection failed");
@@ -169,7 +169,7 @@ describe("useTranslationState", () => {
           initialProps: {
             queryResult: { data: "Hola", error: null },
           },
-        }
+        },
       );
 
       expect(result.current.toText).toBe("Hola");
@@ -182,7 +182,7 @@ describe("useTranslationState", () => {
 
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
     });
   });
@@ -193,7 +193,7 @@ describe("useTranslationState", () => {
       const queryResult = { data: "Hola mundo", error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState("hello world", queryResult)
+        useTranslationState("hello world", queryResult),
       );
 
       expect(result.current.toText).toBe("Hola mundo");
@@ -205,7 +205,7 @@ describe("useTranslationState", () => {
       const queryResult = { data: "", error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState("hello", queryResult)
+        useTranslationState("hello", queryResult),
       );
 
       expect(result.current.toText).toBe("");
@@ -221,7 +221,7 @@ describe("useTranslationState", () => {
           initialProps: {
             queryResult: { data: "Hola", error: null },
           },
-        }
+        },
       );
 
       expect(result.current.toText).toBe("Hola");
@@ -246,13 +246,13 @@ describe("useTranslationState", () => {
           initialProps: {
             queryResult: { data: undefined, error: queryError },
           },
-        }
+        },
       );
 
       // Initially error state
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
 
       // Transition to success
@@ -273,7 +273,7 @@ describe("useTranslationState", () => {
           initialProps: {
             queryResult: { data: "Hola", error: null },
           },
-        }
+        },
       );
 
       // Initially success state
@@ -288,7 +288,7 @@ describe("useTranslationState", () => {
 
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
     });
   });
@@ -314,7 +314,7 @@ describe("useTranslationState", () => {
       const queryResult = { data: "Hola", error: null };
 
       const { result } = renderHook(() =>
-        useTranslationState("hello", queryResult)
+        useTranslationState("hello", queryResult),
       );
 
       // Initially from query
@@ -341,12 +341,12 @@ describe("useTranslationState", () => {
             debouncedText: "",
             queryResult: { data: undefined, error: null },
           },
-        }
+        },
       );
 
       // Empty text -> error
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
 
       // Add text with success -> clear error
@@ -365,7 +365,7 @@ describe("useTranslationState", () => {
       });
       expect(result.current.toText).toBe("");
       expect(result.current.error).toBe(
-        "Failed to translate. Please try again."
+        "Failed to translate. Please try again.",
       );
 
       // Back to empty text -> different error message
@@ -374,7 +374,7 @@ describe("useTranslationState", () => {
         queryResult: { data: undefined, error: null },
       });
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
     });
 
@@ -386,7 +386,7 @@ describe("useTranslationState", () => {
 
       const { result, rerender } = renderHook(
         ({ debouncedText }) => useTranslationState(debouncedText, queryResult),
-        { initialProps: { debouncedText: "" } }
+        { initialProps: { debouncedText: "" } },
       );
 
       expect(result.current.error).toBe(null);
@@ -396,7 +396,7 @@ describe("useTranslationState", () => {
       rerender({ debouncedText: "" });
 
       expect(result.current.error).toBe(
-        "Text must be at least 1 character long"
+        "Text must be at least 1 character long",
       );
     });
   });
@@ -416,7 +416,7 @@ describe("useTranslationState", () => {
 
       const { rerender } = renderHook(
         ({ debouncedText }) => useTranslationState(debouncedText, queryResult),
-        { initialProps: { debouncedText: "hello" } }
+        { initialProps: { debouncedText: "hello" } },
       );
 
       expect(useInteractionTracker).toHaveBeenCalledWith("hello");
@@ -435,7 +435,7 @@ describe("useTranslationState", () => {
           initialProps: {
             queryResult: { data: undefined, error: null },
           },
-        }
+        },
       );
 
       const initialError = result.current.error;

@@ -35,7 +35,7 @@ describe("useInteractionTracker", () => {
         ({ text }) => useInteractionTracker(text, true),
         {
           initialProps: { text: "" },
-        }
+        },
       );
 
       // Initially false
@@ -49,7 +49,7 @@ describe("useInteractionTracker", () => {
 
     it("should return true when text has content with surrounding whitespace", () => {
       const { result } = renderHook(() =>
-        useInteractionTracker("  hello  ", true)
+        useInteractionTracker("  hello  ", true),
       );
 
       expect(result.current.current).toBe(true);
@@ -78,7 +78,7 @@ describe("useInteractionTracker", () => {
     it("should remain true once interaction is detected, even if text becomes empty", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "" } }
+        { initialProps: { text: "" } },
       );
 
       // Initially false
@@ -96,7 +96,7 @@ describe("useInteractionTracker", () => {
     it("should remain true when text changes to whitespace only", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "hello" } }
+        { initialProps: { text: "hello" } },
       );
 
       // Initially true (has content)
@@ -110,7 +110,7 @@ describe("useInteractionTracker", () => {
     it("should remain true when text changes to null or undefined", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "hello" } }
+        { initialProps: { text: "hello" } },
       );
 
       // Initially true
@@ -130,7 +130,7 @@ describe("useInteractionTracker", () => {
     it("should track changes from empty to content", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "" } }
+        { initialProps: { text: "" } },
       );
 
       expect(result.current.current).toBe(false);
@@ -148,7 +148,7 @@ describe("useInteractionTracker", () => {
     it("should track changes from whitespace to content", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "   " } }
+        { initialProps: { text: "   " } },
       );
 
       expect(result.current.current).toBe(false);
@@ -160,7 +160,7 @@ describe("useInteractionTracker", () => {
     it("should handle rapid text changes", () => {
       const { result, rerender } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "" } }
+        { initialProps: { text: "" } },
       );
 
       expect(result.current.current).toBe(false);
@@ -178,7 +178,7 @@ describe("useInteractionTracker", () => {
   describe("Edge cases", () => {
     it("should handle text that starts with content", () => {
       const { result } = renderHook(() =>
-        useInteractionTracker("initial content", true)
+        useInteractionTracker("initial content", true),
       );
 
       expect(result.current.current).toBe(true);
@@ -186,26 +186,32 @@ describe("useInteractionTracker", () => {
 
     it("should handle very long text", () => {
       const longText = "a".repeat(1000);
-      const { result } = renderHook(() => useInteractionTracker(longText, true));
+      const { result } = renderHook(() =>
+        useInteractionTracker(longText, true),
+      );
 
       expect(result.current.current).toBe(true);
     });
 
     it("should handle text with only newlines and tabs", () => {
-      const { result } = renderHook(() => useInteractionTracker("\n\t\r", true));
+      const { result } = renderHook(() =>
+        useInteractionTracker("\n\t\r", true),
+      );
 
       expect(result.current.current).toBe(false);
     });
 
     it("should handle text with newlines and content", () => {
-      const { result } = renderHook(() => useInteractionTracker("\nhello\n", true));
+      const { result } = renderHook(() =>
+        useInteractionTracker("\nhello\n", true),
+      );
 
       expect(result.current.current).toBe(true);
     });
 
     it("should handle unicode characters", () => {
       const { result } = renderHook(() =>
-        useInteractionTracker("🚀 Hello World! 🌍", true)
+        useInteractionTracker("🚀 Hello World! 🌍", true),
       );
 
       expect(result.current.current).toBe(true);
@@ -214,9 +220,11 @@ describe("useInteractionTracker", () => {
 
   describe("Multiple instances", () => {
     it("should maintain independent state for different instances", () => {
-      const { result: result1 } = renderHook(() => useInteractionTracker("", true));
+      const { result: result1 } = renderHook(() =>
+        useInteractionTracker("", true),
+      );
       const { result: result2 } = renderHook(() =>
-        useInteractionTracker("hello", true)
+        useInteractionTracker("hello", true),
       );
 
       expect(result1.current.current).toBe(false);
@@ -226,10 +234,12 @@ describe("useInteractionTracker", () => {
     it("should not affect other instances when one changes", () => {
       const { result: result1, rerender: rerender1 } = renderHook(
         ({ text }) => useInteractionTracker(text, true),
-        { initialProps: { text: "" } }
+        { initialProps: { text: "" } },
       );
 
-      const { result: result2 } = renderHook(() => useInteractionTracker("", true));
+      const { result: result2 } = renderHook(() =>
+        useInteractionTracker("", true),
+      );
 
       expect(result1.current.current).toBe(false);
       expect(result2.current.current).toBe(false);
@@ -250,7 +260,7 @@ describe("useInteractionTracker", () => {
           renderCount++;
           return useInteractionTracker(text, true);
         },
-        { initialProps: { text: "hello" } }
+        { initialProps: { text: "hello" } },
       );
 
       const initialRenderCount = renderCount;
