@@ -1,11 +1,10 @@
 import languages from "../utils/languaje.js";
 import { useTranslator } from "../hooks/useTranslator.js";
 import { LanguageSelector } from "./LanguageSelector.jsx";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { DisplayTextInput } from "./DisplayTextInput.jsx";
 
 export const Translator = () => {
-	const [toggle, setToggle] = useState(false)
 	const {
 		fromText,
 		setFromText,

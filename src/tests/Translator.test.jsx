@@ -28,7 +28,7 @@ describe("Translator component", () => {
     render(<Translator />);
 
     // Verify critical elements are present
-    expect(screen.getByPlaceholderText("Enter Text")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Enter your text")).toBeInTheDocument();
     expect(screen.getByLabelText("Translated text")).toBeInTheDocument();
     expect(screen.getByLabelText("Exchange languages")).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe("Translator component", () => {
     });
 
     render(<Translator />);
-    const fromTextArea = screen.getByPlaceholderText("Enter Text");
+    const fromTextArea = screen.getByPlaceholderText("Enter your text");
 
     fireEvent.change(fromTextArea, { target: { value: "Hello" } }); // Simulate user typing "Hello"
 

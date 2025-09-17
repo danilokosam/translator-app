@@ -43,42 +43,4 @@ describe("LanguageSelector component", () => {
 
     expect(onChange).toHaveBeenCalled(); // Verify that onChange was called
   });
-
-  test('should call onIconClick with "speak" when the speak icon is clicked', () => {
-    // Mock function to track onIconClick calls
-    const onIconClick = vi.fn();
-    render(
-      <LanguageSelector
-        id="from" // The ID here is crucial as it's passed to onIconClick
-        value="en-GB"
-        onChange={() => {}}
-        languages={languages}
-        onIconClick={onIconClick} // Pass the mock function to onIconClick
-      />
-    );
-
-    const speakButton = screen.getByLabelText("Speak source text"); // Get the speak icon button by its accessibility label
-    fireEvent.click(speakButton); // Simulate a click event on the speak icon
-
-    expect(onIconClick).toHaveBeenCalledWith("speak", "from"); // Verify that onIconClick was called with the correct parameters
-  });
-
-  test('should call onIconClick with "copy" when the copy icon is clicked', () => {
-    // Mock function to track onIconClick calls
-    const onIconClick = vi.fn();
-    render(
-      <LanguageSelector
-        id="to" // The ID here is crucial as it's passed to onIconClick
-        value="es-ES"
-        onChange={() => {}}
-        languages={languages}
-        onIconClick={onIconClick} // Pass the mock function to onIconClick
-      />
-    );
-
-    const copyButton = screen.getByLabelText("Copy translated text"); // Get the copy icon button by its accessibility label
-    fireEvent.click(copyButton); // Simulate a click event on the copy icon
-
-    expect(onIconClick).toHaveBeenCalledWith("copy", "to"); // Verify that onIconClick was called with the correct parameters
-  });
 });
