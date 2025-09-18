@@ -24,7 +24,7 @@ export const DisplayTextInput = ({
             <textarea
               id='fromText'
               name='fromText'
-              className='from-text w-full min-h-[100px] sm:min-h-[160px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
+              className='from-text w-full min-h-[100px] sm:min-h-[130px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
               placeholder='Enter your text'
               value={fromText}
               onChange={(e) => setFromText(e.target.value)}
@@ -45,7 +45,7 @@ export const DisplayTextInput = ({
             <textarea
               id='toText'
               name='toText'
-              className='to-text from-text w-full min-h-[100px] sm:min-h-[160px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
+              className='to-text from-text w-full min-h-[100px] sm:min-h-[130px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
               placeholder='Translation'
               value={loading ? "Translating..." : toText}
               readOnly

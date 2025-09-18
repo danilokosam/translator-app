@@ -62,7 +62,7 @@ export const Translator = () => {
         onIconClick={handleIconClick}
       />
 
-      <ul className='flex flex-col  sm:flex-row sm:justify-evenly relative bg-white sm:p-4'>
+      <ul className='flex flex-col  sm:flex-row sm:justify-evenly relative bg-white p-3 sm:p-4'>
         {/* Display language selectors 🌐 */}
         <li className='w-fit mx-auto sm:w-auto bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700  rounded-4xl font-semibold text-sm shadow-xl '>
           <LanguageSelector
