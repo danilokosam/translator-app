@@ -39,15 +39,17 @@ export const Translator = () => {
   );
 
   return (
-    <div className='wrapper  h-[calc(100%-20px)] bg-blue-600 flex flex-col justify-between'>
+    <div className='w-full sm:max-w-4xl mx-auto px-4'>
       {/* Display error ❌ */}
       <div className='relative bg-blue-200'>
-        <strong className='absolute right-[9%] top-[22%] text-4xl bg-white rounded-xl px-3 py-1'>
+        <strong className='absolute left-[2%] top-[30%] text-2xl sm:text-4xl bg-white rounded-xl px-3 py-1 select-none'>
           T
         </strong>
 
-        <div className='h-24 w-7/8 bg-gradient-to-l from-blue-500 to-blue-600 to-30% rounded-br-[60px]  text-center p-6 pr-12'>
-          <p className='text-4xl font-bold text-end'>🔥 Text to Translate</p>
+        <div className='min-h-[6rem] w-full bg-gradient-to-l  from-[#62cff4] to-[#2c67f2] rounded-br-[60px] p-4 sm:p-6 flex justify-end items-center'>
+          <p className='text-3xl sm:text-5xl font-bold text-end text-white select-none'>
+            Lingo Traductor
+          </p>
         </div>
       </div>
 
@@ -59,9 +61,10 @@ export const Translator = () => {
         setFromText={setFromText}
         onIconClick={handleIconClick}
       />
-      <ul className='controls flex justify-around relative bg-white -mt-2'>
+
+      <ul className='flex flex-col  sm:flex-row sm:justify-evenly relative bg-white sm:p-4'>
         {/* Display language selectors 🌐 */}
-        <div className='bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700 px-2 py-2 rounded-4xl font-semibold shadow-xl '>
+        <li className='w-fit mx-auto sm:w-auto bg-gradient-to-t from-white to-gray-100 hover:to-gray-300 text-gray-700  rounded-4xl font-semibold text-sm shadow-xl '>
           <LanguageSelector
             id='from'
             value={fromLanguage}
@@ -69,11 +72,11 @@ export const Translator = () => {
             languages={languages}
             onIconClick={handleIconClick}
           />
-        </div>
+        </li>
 
         {/* Display exchange button 🔄*/}
         <li
-          className='exchange absolute px-7 py-5 bg-gradient-to-t from-gray-100 to-gray-200 hover:to-gray-300 rounded-full shadow-xl cursor-pointer'
+          className='exchange px-1 py-1 sm:px-2 sm:py-2 bg-gradient-to-t from-gray-100 to-gray-200 hover:to-gray-300 rounded-full shadow-xl cursor-pointer self-center sm:self-auto'
           onClick={handleExchange}
           role='button'
           aria-label='Exchange languages'
@@ -86,7 +89,7 @@ export const Translator = () => {
         </li>
 
         {/* Display language selector for target language 🌐 */}
-        <div className='px-2 py-2 rounded-4xl bg-gradient-to-t  from-blue-600 to-blue-500 hover:to-blue-700 text-white font-semibold shadow-xl'>
+        <li className='w-fit mx-auto sm:w-auto rounded-4xl bg-gradient-to-t from-blue-600 to-blue-500 hover:to-blue-700 text-white font-semibold shadow-xl text-sm'>
           <LanguageSelector
             id='to'
             value={toLanguage}
@@ -94,7 +97,7 @@ export const Translator = () => {
             languages={languages}
             onIconClick={handleIconClick}
           />
-        </div>
+        </li>
       </ul>
     </div>
   );

@@ -11,9 +11,9 @@ export const DisplayTextInput = ({
   return (
     <>
       {/* Display text input ✍️*/}
-      <div className='text-input   flex flex-col justify-between '>
+      <div className='text-input   flex flex-col justify-between'>
         <div className='bg-gradient-to-b from-blue-600 to-white'>
-          <div className='relative w-full bg-blue-200 p-6 rounded-tl-[50px] rounded-br-[50px]  '>
+          <div className='relative w-full bg-blue-200 p-3 sm:p-4 rounded-tl-[40px] rounded-br-[40px]'>
             <ActionsButtons
               error={error}
               id='from'
@@ -22,7 +22,9 @@ export const DisplayTextInput = ({
             />
 
             <textarea
-              className='from-text text-2xl  w-full min-h-[300px] p-4 outline-0  '
+              id='fromText'
+              name='fromText'
+              className='from-text w-full min-h-[100px] sm:min-h-[160px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
               placeholder='Enter your text'
               value={fromText}
               onChange={(e) => setFromText(e.target.value)}
@@ -31,7 +33,7 @@ export const DisplayTextInput = ({
           </div>
         </div>
         <div className='bg-blue-200'>
-          <div className='w-full bg-white p-6 rounded-tl-[50px]  '>
+          <div className='w-full bg-white p-3 sm:p-4 rounded-tl-[40px] '>
             <ActionsButtons id='to' onIconClick={onIconClick} />
             {/* Display loading spinner ⏳ */}
             {/* {loading && (
@@ -41,7 +43,9 @@ export const DisplayTextInput = ({
 						)} */}
 
             <textarea
-              className='to-text from-text text-2xl w-full min-h-[340px] p-4 outline-0'
+              id='toText'
+              name='toText'
+              className='to-text from-text w-full min-h-[100px] sm:min-h-[160px] text-sm sm:text-lg p-3 outline-0 rounded-md resize-none '
               placeholder='Translation'
               value={loading ? "Translating..." : toText}
               readOnly

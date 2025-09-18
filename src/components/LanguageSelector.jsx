@@ -1,7 +1,7 @@
 export const LanguageSelector = ({ value, onChange, languages, id }) => (
   <div className={` row ${id} `}>
     <select
-      className='outline-0 px-12  py-3 transition duration-300 ease cursor-pointer'
+      className='outline-0 px-10  py-2 transition duration-300 ease cursor-pointer text-center'
       value={value}
       onChange={onChange}
       aria-label={`Select ${id} language`}
